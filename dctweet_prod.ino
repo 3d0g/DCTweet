@@ -152,13 +152,6 @@ void setup() {
   // reserve space for the strings:
   currentLine.reserve(170);
   tweet.reserve(170);
-  WiFly.begin();
-  if (!WiFly.join(ssid, pass)) {
-    tweet = "WiFI failed.";
-    while (1) {
-      // Hang on failure.
-    }
-  }  
   //we have to init all devices in a loop
   for(int address=0;address<devCount;address++) {
     /*The MAX72XX is in power-saving mode on startup*/
@@ -182,6 +175,13 @@ void setup() {
   // enable timer compare interrupt:
   TIMSK1 |= (1 << OCIE1A);
   sei();          // enable global interrupts
+  WiFly.begin();
+  if (!WiFly.join(ssid, pass)) {
+    tweet = "WiFI failed.";
+    while (1) {
+      // Hang on failure.
+    }
+  }    
   // connect to Twitter:
   connectToServer();  
 }
